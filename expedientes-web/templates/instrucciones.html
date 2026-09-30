@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instrucción · {{ estado }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header class="barra">
+        <span class="marca">Biblioteca de Instrucciones de Trabajo</span>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="resultado {{ clase }}">
+            <p class="etiqueta">Estado de la instrucción</p>
+
+            <h1>{{ estado }}</h1>
+
+            <p>{{ detalle }}</p>
+        </section>
+
+        <div class="tarjeta">
+
+            <h2>Datos recibidos</h2>
+
+            <table class="datos">
+                <tr>
+                    <th>Versión solicitada</th>
+                    <td>{{ version }}</td>
+                </tr>
+
+                <tr>
+                    <th>Versión vigente</th>
+                    <td>{{ vigente }}</td>
+                </tr>
+
+                <tr>
+                    <th>Rol del usuario</th>
+                    <td>{{ rol }}</td>
+                </tr>
+            </table>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <h2>Casos de prueba</h2>
+
+            <ul class="pruebas">
+
+                <li>
+                    <a href="{{ url_for('evaluar_instruccion', version=vigente, rol='edicion') }}">
+                        Versión {{ vigente }} · edición
+                    </a>
+                    <span class="punto edicion"></span>
+                    Vigente edición
+                </li>
+
+                <li>
+                    <a href="{{ url_for('evaluar_instruccion', version=vigente+1, rol='lectura') }}">
+                        Versión {{ vigente+1 }} · lectura
+                    </a>
+                    <span class="punto bloqueada"></span>
+                    No disponible
+                </li>
+
+                <li>
+                    <a href="{{ url_for('evaluar_instruccion', version='abc', rol='admin') }}">
+                        Versión abc · admin
+                    </a>
+                    <span class="punto invalido"></span>
+                    No válido
+                </li>
+
+            </ul>
+
+        </div>
+
+    </main>
+
+</body>
+</html>

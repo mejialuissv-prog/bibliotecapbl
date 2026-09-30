@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expediente · {{ estado }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <header class="barra">
+        <span class="marca">Expedientes Digitales</span>
+    </header>
+
+    <main class="contenedor">
+
+        <section class="resultado {{ clase }}">
+
+            <p class="etiqueta">Estado del expediente</p>
+
+            <h1>{{ estado }}</h1>
+
+            <p>{{ detalle }}</p>
+
+            {% if requeridos %}
+                <div class="barra-progreso">
+                    <div style="width: {{ progreso }}%"></div>
+                </div>
+
+                <p class="porcentaje">
+                    {{ progreso }}% del checklist
+                </p>
+            {% endif %}
+
+        </section>
+
+        <div class="tarjeta">
+
+            <h2>Datos recibidos</h2>
+
+            <table class="datos">
+
+                <tr>
+                    <th>Perfil</th>
+                    <td>{{ perfil }}</td>
+                </tr>
+
+                <tr>
+                    <th>Documentos entregados</th>
+                    <td>{{ entregados }}</td>
+                </tr>
+
+                <tr>
+                    <th>Documentos requeridos</th>
+                    <td>{{ requeridos if requeridos else "—" }}</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+        <div class="tarjeta">
+
+            <h2>Casos de prueba</h2>
+
+            <ul class="pruebas">
+
+                <li>
+                    <a href="{{ url_for('evaluar_expediente', perfil='medico', entregados=0) }}">
+                        Médico · 0 docs
+                    </a>
+                    <span class="punto obsoleta"></span>
+                    Sin iniciar
+                </li>
+
+                <li>
+                    <a href="{{ url_for('evaluar_expediente', perfil='enfermeria', entregados=4) }}">
+                        Enfermería · 4 docs
+                    </a>
+                    <span class="punto borrador"></span>
+                    Incompleto
+                </li>
+
+                <li>
+                    <a href="{{ url_for('evaluar_expediente', perfil='administrativo', entregados=5) }}">
+                        Administrativo · 5 docs
+                    </a>
+                    <span class="punto edicion"></span>
+                    Completo
+                </li>
+
+                <li>
+                    <a href="{{ url_for('evaluar_expediente', perfil='medico', entregados=12) }}">
+                        Médico · 12 docs
+                    </a>
+                    <span class="punto invalido"></span>
+                    Revisar
+                </li>
+
+                <li>
+                    <a href="{{ url_for('evaluar_expediente', perfil='piloto', entregados=3) }}">
+                        Piloto · 3 docs
+                    </a>
+                    <span class="punto invalido"></span>
+                    No válido
+                </li>
+
+            </ul>
+
+        </div>
+
+    </main>
+
+</body>
+</html>
